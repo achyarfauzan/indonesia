@@ -1,38 +1,10 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Data Viewer</title>
-  <link rel="stylesheet" href="style.css">
+  <title>Simple HTML Application</title>
 </head>
 <body>
-  <h1>Data Viewer</h1>
-  <table>
-    <tr>
-      <th>Name</th>
-      <th>Address</th>
-    </tr>
-    <?php
-    // Load the Excel file
-    $excel = PHPExcel_IOFactory::load("data.xlsx");
-
-    // Get the worksheet
-    $sheet = $excel->getSheetByName("Sheet1");
-
-    // Loop through the rows
-    foreach ($sheet->getRowIterator() as $row) {
-      // Get the cells in the row
-      $cells = $row->getCellIterator();
-
-      // Loop through the cells
-      foreach ($cells as $cell) {
-        // Print the cell value
-        echo '<td>' . $cell->getValue() . '</td>';
-      }
-
-      // Print a new row
-      echo '</tr>';
-    }
-    ?>
-  </table>
+  <h1>This is a simple HTML application.</h1>
+  <p>This application was created using the HTML programming language.</p>
 </body>
 </html>
