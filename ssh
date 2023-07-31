@@ -1,0 +1,45 @@
+import tkinter as tk
+
+root = tk.Tk()
+
+# Create a label
+label = tk.Label(root, text="Hello, world!")
+
+# Create a button
+button = tk.Button(root, text="Click Me!")
+
+# Bind the button to the click event
+button.bind("<Button-1>", lambda event: label.config(text="You clicked the button!"))
+
+# Pack the label and button
+label.pack()
+button.pack()
+
+# Create a listbox
+listbox = tk.Listbox(root)
+listbox.pack()
+
+# Add some data to the listbox
+listbox.insert(tk.END, "John Doe")
+listbox.insert(tk.END, "Jane Doe")
+listbox.insert(tk.END, "Peter Smith")
+
+# Create a search bar
+searchbar = tk.Entry(root)
+searchbar.pack()
+
+# Bind the searchbar to the enter event
+searchbar.bind("<Return>", lambda event: search_data(listbox, searchbar.get()))
+
+# Define a function to search for data
+def search_data(listbox, keyword):
+    filtered_list = []
+    for item in listbox.get(0, tk.END):
+        if keyword in item:
+            filtered_list.append(item)
+    listbox.delete(0, tk.END)
+    for item in filtered_list:
+        listbox.insert(tk.END, item)
+
+# Start the mainloop
+root.mainloop()
