@@ -1,37 +1,37 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Excel Data Viewer</title>
+<title>Excel Data Viewer</title>
 </head>
 <body>
-  <h1>Excel Data Viewer</h1>
-  <table>
-    <tr>
-      <th>Name</th>
-      <th>Address</th>
-    </tr>
-    <?php
-    // Load the Excel file
-    $excel = PHPExcel_IOFactory::load("data.xlsx");
+<h1>Excel Data Viewer</h1>
+<table>
+<tr>
+<th>Name</th>
+<th>Address</th>
+</tr>
+<?php
+// Load the Excel file
+$excel = PHPExcel_IOFactory::load("data.xlsx");
 
-    // Get the worksheet
-    $sheet = $excel->getSheetByName("Sheet1");
+// Get the worksheet
+$sheet = $excel->getSheetByName("Sheet1");
 
-    // Loop through the rows
-    foreach ($sheet->getRowIterator() as $row) {
-      // Get the cells in the row
-      $cells = $row->getCellIterator();
+// Loop through the rows
+foreach ($sheet->getRowIterator() as $row) {
+// Get the cells in the row
+$cells = $row->getCellIterator();
 
-      // Loop through the cells
-      foreach ($cells as $cell) {
-        // Print the cell value
-        echo '<td>' . $cell->getValue() . '</td>';
-      }
+// Loop through the cells
+foreach ($cells as $cell) {
+// Print the cell value
+echo '<td>' . $cell->getValue() . '</td>';
+}
 
-      // Print a new row
-      echo '</tr>';
-    }
-    ?>
-  </table>
+// Print a new row
+echo '</tr>';
+}
+?>
+</table>
 </body>
 </html>
