@@ -1,39 +1,38 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <title>Simple HTML Application</title>
+<title>GitHub Excel Data Viewer</title>
 </head>
 <body>
-    <h1>This is a simple HTML application.</h1>
-    <p>This application was created using the HTML programming language.</p>
-    <form action="search.php" method="post">
-        <input type="text" name="keyword" placeholder="Search for a word">
-        <input type="submit" value="Search">
-    </form>
-    <?php
-    // Check if the keyword was submitted
-    if (isset($_POST['keyword'])) {
-        // Get the keyword
-        $keyword = $_POST['keyword'];
+<h1>GitHub Excel Data Viewer</h1>
+<table>
+<tr>
+<th>Column 1</th>
+<th>Column 2</th>
+<th>Column 3</th>
+</tr>
+<?php
+// Load the Excel file
+$excel = PHPExcel_IOFactory::load("data.xlsx");
 
-        // Search for the keyword in the document
-        $results = array();
-        foreach ($document as $paragraph) {
-            if (strstr($paragraph, $keyword)) {
-                $results[] = $paragraph;
-            }
-        }
+// Get the worksheet
+$sheet = $excel->getSheetByName("Sheet1");
 
-        // If the keyword was found, display the results
-        if (count($results) > 0) {
-            foreach ($results as $result) {
-                echo $result . "<br>";
-            }
-        } else {
-            echo "The keyword was not found.";
-        }
-    }
-    ?>
+// Loop through the rows
+foreach ($sheet->getRowIterator() as $row) {
+// Get the cells in the row
+$cells = $row->getCellIterator();
+
+// Loop through the cells
+foreach ($cells as $cell) {
+// Print the cell value
+echo '<td>' . $cell->getValue() . '</td>';
+}
+
+// Print a new row
+echo '</tr>';
+}
+?>
+</table>
 </body>
 </html>
