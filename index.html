@@ -1,35 +1,34 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Data Search Application</title>
+  <title>Excel Data Viewer</title>
 </head>
 <body>
-  <h1>Data Search Application</h1>
-  <form action="search.php" method="post">
-    <input type="text" name="keyword" placeholder="Search for data">
-    <input type="submit" value="Search">
-  </form>
+  <h1>Excel Data Viewer</h1>
   <table>
     <tr>
       <th>Name</th>
       <th>Address</th>
     </tr>
     <?php
-    // Connect to the database
-    $db = new PDO('mysql:host=localhost;dbname=mydatabase', 'username', 'password');
+    // Load the Excel file
+    $excel = PHPExcel_IOFactory::load("data.xlsx");
 
-    // Get the search keyword from the form
-    $keyword = $_POST['keyword'];
+    // Get the worksheet
+    $sheet = $excel->getSheetByName("Sheet1");
 
-    // Get the list of data that match the search keyword
-    $sql = "SELECT name, address FROM data WHERE name LIKE '%$keyword%'";
-    $result = $db->query($sql);
+    // Loop through the rows
+    foreach ($sheet->getRowIterator() as $row) {
+      // Get the cells in the row
+      $cells = $row->getCellIterator();
 
-    // Loop through the results and print them out
-    foreach ($result as $row) {
-      echo '<tr>';
-      echo '<td>' . $row['name'] . '</td>';
-      echo '<td>' . $row['address'] . '</td>';
+      // Loop through the cells
+      foreach ($cells as $cell) {
+        // Print the cell value
+        echo '<td>' . $cell->getValue() . '</td>';
+      }
+
+      // Print a new row
       echo '</tr>';
     }
     ?>
