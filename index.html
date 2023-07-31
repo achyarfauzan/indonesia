@@ -2,52 +2,37 @@
 <html>
 <head>
   <title>Data Viewer</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
   <h1>Data Viewer</h1>
   <table>
     <tr>
-      <th>ayam</th>
-      <th>Column 2</th>
-      <th>Column 3</th>
-      <th>Column 4</th>
-      <th>Column 5</th>
+      <th>Name</th>
+      <th>Address</th>
     </tr>
-    <tr>
-      <td>Row 1, enak</td>
-      <td>Row 1, Column 2</td>
-      <td>Row 1, Column 3</td>
-      <td>Row 1, Column 4</td>
-      <td>Row 1, Column 5</td>
-    </tr>
-    <tr>
-      <td>Row 2, Column 1</td>
-      <td>Row 2, Column 2</td>
-      <td>Row 2, Column 3</td>
-      <td>Row 2, Column 4</td>
-      <td>Row 2, Column 5</td>
-    </tr>
-    <tr>
-      <td>Row 3, Column 1</td>
-      <td>Row 3, Column 2</td>
-      <td>Row 3, Column 3</td>
-      <td>Row 3, Column 4</td>
-      <td>Row 3, Column 5</td>
-    </tr>
-    <tr>
-      <td>Row 4, Column 1</td>
-      <td>Row 4, Column 2</td>
-      <td>Row 4, Column 3</td>
-      <td>Row 4, Column 4</td>
-      <td>Row 4, Column 5</td>
-    </tr>
-    <tr>
-      <td>Row 5, Column 1</td>
-      <td>Row 5, Column 2</td>
-      <td>Row 5, Column 3</td>
-      <td>Row 5, Column 4</td>
-      <td>Row 5, Column 5</td>
-    </tr>
+    <?php
+    // Load the Excel file
+    $excel = PHPExcel_IOFactory::load("data.xlsx");
+
+    // Get the worksheet
+    $sheet = $excel->getSheetByName("Sheet1");
+
+    // Loop through the rows
+    foreach ($sheet->getRowIterator() as $row) {
+      // Get the cells in the row
+      $cells = $row->getCellIterator();
+
+      // Loop through the cells
+      foreach ($cells as $cell) {
+        // Print the cell value
+        echo '<td>' . $cell->getValue() . '</td>';
+      }
+
+      // Print a new row
+      echo '</tr>';
+    }
+    ?>
   </table>
 </body>
 </html>
