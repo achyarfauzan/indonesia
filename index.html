@@ -1,10 +1,38 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Simple HTML Application</title>
+  <title>Simple HTML Application with Search</title>
 </head>
 <body>
-  <h1>This is a simple HTML application.</h1>
+  <h1>This is a simple HTML application with search.</h1>
   <p>This application was created using the HTML programming language.</p>
+  <form action="search.php" method="post">
+    <input type="text" name="keyword" placeholder="Search for a word">
+    <input type="submit" value="Search">
+  </form>
+  <?php
+  // Check if the keyword was submitted
+  if (isset($_POST['keyword'])) {
+    // Get the keyword
+    $keyword = $_POST['keyword'];
+
+    // Search for the keyword in the document
+    $results = array();
+    foreach ($document as $paragraph) {
+      if (strstr($paragraph, $keyword)) {
+        $results[] = $paragraph;
+      }
+    }
+
+    // If the keyword was found, display the results
+    if (count($results) > 0) {
+      foreach ($results as $result) {
+        echo $result . "<br>";
+      }
+    } else {
+      echo "The keyword was not found.";
+    }
+  }
+  ?>
 </body>
 </html>
